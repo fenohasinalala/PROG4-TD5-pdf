@@ -54,24 +54,12 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
     public void generateDocument(@PathVariable("id") String id, HttpServletResponse response) {
 
         Employee employee = employeeService.getEmployeeById(id);
-        EmployeeView employeeView = employeeViewMapper.toView(employee);
+        EmployeeView employeeView = employeeViewMapper.toView(employee,"Not specified");
         Company company = companyService.getCompanyInfo();
 
         Context context= new Context();
-        context.setVariable("numeroMatricule", employeeView.getRegistrationNo()==null?"Non spécifié": employeeView.getRegistrationNo());
-        context.setVariable("noms", employeeView.getLastName()==null?"Non spécifié":employeeView.getLastName());
-        context.setVariable("prenoms", employeeView.getFirstName()==null?"Non spécifié":employeeView.getFirstName());
-        context.setVariable("age", "30");
-        context.setVariable("dateEmbauche", employeeView.getHiringDate()==null?"Non spécifié":employeeView.getHiringDate());
-        context.setVariable("dateDepart", employeeView.getDepartureDate()==null?"Non spécifié":employee.getDepartureDate());
-        context.setVariable("numeroCNAPS", employeeView.getCnapsNumber()==null?"Non spécifié":employeeView.getCnapsNumber());
-        context.setVariable("salaireBrut", /*TODO:Implement Salary*/employeeView.getId()==null?"Non spécifié":"5000");
-        context.setVariable("nomEntreprise", company.getCompanyName());
-        context.setVariable("nifEntreprise", company.getNif());
-        context.setVariable("statEntreprise", company.getStat());
-        context.setVariable("adresseEntreprise", company.getAddress());
-        context.setVariable("telephoneEntreprise", company.getPhones().stream().map(phone -> PhoneFormatting.reformatPhoneNumber(phone.getCountryCode()+","+phone.getNumber())).toList());
-        context.setVariable("emailEntreprise", company.getContactEmail());
+        context.setVariable("employee", employeeView);
+        context.setVariable("company", company);
 
         String dateRef ="-"+ LocalDate.now().getMonth()+"-"+ LocalDate.now().getYear();
         String html = springTemplateEngine.process("sheet-employee", context);

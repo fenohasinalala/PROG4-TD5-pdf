@@ -90,19 +90,19 @@
         </div>
         <div class="fiche-employe">
             <h1>FICHE EMPLOYÉ</h1>
-            <p>Numéro matricule: <span th:text="${numeroMatricule}"></span></p>
-            <p>Noms: <span th:text="${noms}"></span></p>
-            <p>Prénoms: <span th:text="${prenoms}"></span></p>
-            <p>Âge: <span th:text="${age}"></span> ans</p>
-            <p>Date d'embauche: <span th:text="${dateEmbauche}"></span></p>
-            <p>Date de départ: <span th:text="${dateDepart}"></span></p>
-            <p>Numéro CNAPS: <span th:text="${numeroCNAPS}"></span></p>
+            <p>Numéro matricule: <span th:text="${employee.getRegistrationNo()}"></span></p>
+            <p>Noms: <span th:text="${employee.getLastName()}"></span></p>
+            <p>Prénoms: <span th:text="${employee.getFirstName()}"></span></p>
+            <p>Âge: <span th:text="${employee.getBirthDate()}"></span> ans</p>
+            <p>Date d'embauche: <span th:text="${employee.getHiringDate()}"></span></p>
+            <p>Date de départ: <span th:text="${employee.getDepartureDate()}"></span></p>
+            <p>Numéro CNAPS: <span th:text="${employee.getCnapsNumber()}"></span></p>
         </div>
     </div>
 
     <div class="corps">
         <h2>Informations sur le salaire</h2>
-        <p>Salaire brut actuel: <span th:text="${salaireBrut}"></span> Ariary / mois</p>
+        <p>Salaire brut actuel: <span th:text="${employee.getCinIssuePlace()}"></span> Ariary / mois</p>
     </div>
 
 
@@ -111,14 +111,14 @@
             <!-- Insérez ici la balise pour afficher le logo de l'entreprise -->
         </div>
         <div class="info-entreprise-p1">
-            <p>Entrepise: <span th:text="${nomEntreprise}"></span></p>
-            <p>NIF: <span th:text="${nifEntreprise}"></span></p>
-            <p>STAT: <span th:text="${statEntreprise}"></span></p>
+            <p>Entrepise: <span th:text="${company.getCompanyName()}"></span></p>
+            <p>NIF: <span th:text="${company.getNif()}"></span></p>
+            <p>STAT: <span th:text="${company.getStat()}"></span></p>
         </div>
         <div class="info-entreprise-p2">
-            <p>Adresse: <span th:text="${adresseEntreprise}"></span></p>
-            <p>Téléphone: <span th:text="${telephoneEntreprise}"></span></p>
-            <p>Email: <span th:text="${emailEntreprise}"></span></p>
+            <p>Adresse: <span th:text="${company.getAddress()}"></span></p>
+            <p>Téléphone: <span th:text="${company.getPhones()}"></span></p>
+            <p>Email: <span th:text="${company.getContactEmail()}"></span></p>
         </div>
     </div>
 </div>
