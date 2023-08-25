@@ -52,8 +52,9 @@ public class EmployeeViewMapper {
     }
 
     public EmployeeView toView(Employee employee, String nullReplacement){
-        replaceNullFields(employee,nullReplacement);
-        return getEmployeeView(employee);
+        EmployeeView employeeView = getEmployeeView(employee);
+        replaceNullFields(employeeView,nullReplacement);
+        return employeeView;
     }
 
     public List<EmployeeView> toView(List<Employee> employees){
@@ -66,7 +67,7 @@ public class EmployeeViewMapper {
     public List<EmployeeView> toView(List<Employee> employees, String nullReplacement){
         List<EmployeeView> employeeViews = new ArrayList<>();
         for (Employee employee: employees){
-            employeeViews.add(toView(employee,nullReplacement));
+            employeeViews.add(toView(employee, nullReplacement));
         }
         return employeeViews;
     }
