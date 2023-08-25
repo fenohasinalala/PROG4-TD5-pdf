@@ -1,7 +1,9 @@
 package com.hei.project2p1.controller;
 
 import com.hei.project2p1.controller.constant.EmployeeUrl;
+import com.hei.project2p1.controller.mapper.CompanyViewMapper;
 import com.hei.project2p1.controller.mapper.EmployeeViewMapper;
+import com.hei.project2p1.controller.mapper.modelView.CompanyView;
 import com.hei.project2p1.controller.mapper.modelView.EmployeeView;
 import com.hei.project2p1.exception.BadRequestException;
 import com.hei.project2p1.model.Company;
@@ -44,6 +46,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
 @AllArgsConstructor
     public class EmployeeController {
     private final EmployeeViewMapper employeeViewMapper;
+    private final CompanyViewMapper companyViewMapper;
     private final EmployeeService employeeService;
     private final CompanyService companyService;
     private final SpringSessionService springSessionService;
@@ -56,7 +59,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
 
         Employee employee = employeeService.getEmployeeById(id);
         EmployeeView employeeView = employeeViewMapper.toView(employee,"Not specified");
-        Company company = companyService.getCompanyInfo();
+        CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         String logo = getImageAsBase64("static/image/logo.png");
 
         Context context= new Context();
@@ -73,7 +76,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
 
         Employee employee = employeeService.getEmployeeById(id);
         EmployeeView employeeView = employeeViewMapper.toView(employee,"Not specified");
-        Company company = companyService.getCompanyInfo();
+        CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         String logo = getImageAsBase64("static/image/logo.png");
 
         Context context= new Context();
@@ -147,7 +150,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
         model.addAttribute("session_id", session.getId());
         model.addAttribute("session", springSessionService.getBySessionId(session.getId()));
 
-        Company company = companyService.getCompanyInfo();
+        CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         model.addAttribute("company", company);
 
         return "index";
@@ -173,7 +176,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
         model.addAttribute("categories", categories);
         List<String> genderList= Stream.of(Employee.Gender.values()).map(Enum::name).toList();
         model.addAttribute("genders", genderList);
-        Company company = companyService.getCompanyInfo();
+        CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         model.addAttribute("company", company);
         return "update-employee";
     }
@@ -184,7 +187,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
         EmployeeView employeeView = employeeViewMapper.toView(employee,"Not Specified");
         employeeView.setPhones(employeeView.getPhones().stream().map(PhoneFormatting::reformatPhoneNumber).toList());
         model.addAttribute("employee", employeeView);
-        Company company = companyService.getCompanyInfo();
+        CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         model.addAttribute("company", company);
         return "details-employee";
     }
@@ -238,7 +241,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
                 .registrationNo(null)
                 .build();
         employeeService.save(employeeViewMapper.toDomain(employee), employee.getCodeCountry() , employee.getPhones());
-        Company company = companyService.getCompanyInfo();
+        CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         model.addAttribute("company", company);
         return "redirect:"+ EmployeeUrl.EMPLOYEES_LIST;
     }
@@ -296,7 +299,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
                 .build();
 
         employeeService.save(employeeViewMapper.toDomain(employee), employee.getCodeCountry(), employee.getPhones());
-        Company company = companyService.getCompanyInfo();
+        CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         model.addAttribute("company", company);
         return "redirect:"+"/employees/"+id+"/details";
     }
@@ -337,7 +340,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=employees.csv");
-        Company company = companyService.getCompanyInfo();
+        CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         model.addAttribute("company", company);
 
         return ResponseEntity.ok()

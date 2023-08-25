@@ -44,7 +44,7 @@
                 <h4>Contact</h4>
                 <p th:text="${company.contactEmail}">Contact Email</p>
                 <p>Phones:</p>
-             <p class="phone" th:each="phoneNumber : ${company.phones}" th:text="${phoneNumber.getCountryCode()+phoneNumber.number}"></p>
+             <p class="phone" th:each="phoneNumber : ${company.phones}" th:text="${phoneNumber}"></p>
             </div>
 
             <div class="col-md-3 info">
