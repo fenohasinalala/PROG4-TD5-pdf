@@ -165,9 +165,9 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
     @GetMapping(value = EmployeeUrl.EMPLOYEES_DETAILS)
     public String details(Model model, @PathVariable("id") String id) {
         Employee employee = employeeService.getEmployeeById(id);
-        EmployeeView createEmployeeView = employeeViewMapper.toView(employee);
-        createEmployeeView.setPhones(createEmployeeView.getPhones().stream().map(PhoneFormatting::reformatPhoneNumber).toList());
-        model.addAttribute("employee", createEmployeeView);
+        EmployeeView employeeView = employeeViewMapper.toView(employee,"Not Specified");
+        employeeView.setPhones(employeeView.getPhones().stream().map(PhoneFormatting::reformatPhoneNumber).toList());
+        model.addAttribute("employee", employeeView);
         Company company = companyService.getCompanyInfo();
         model.addAttribute("company", company);
         return "details-employee";
