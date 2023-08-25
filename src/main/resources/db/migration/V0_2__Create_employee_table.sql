@@ -16,7 +16,7 @@ create table if not exists employee (
     gender varchar ,
     hiring_date date  ,
     last_name varchar   ,
-    number_of_children integer,
+    number_of_children integer CHECK (number_of_children >= 0),
     personal_email varchar   ,
     photo text  ,
     professional_email varchar   ,

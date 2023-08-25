@@ -195,6 +195,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
             @RequestParam("hiringDate") String hiringDate,
             @RequestParam("departureDate") String departureDate,
             @RequestParam("socioProfessionalCategory") String socioProfessionalCategory,
+            @RequestParam(value = "monthlySalary", required = false) Integer monthlySalary,
             Model model
     ) {
         String photoTreated = multipartImageToString(photo);
@@ -220,13 +221,14 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
                 .hiringDate(hiringDate)
                 .departureDate(departureDate)
                 .socioProfessionalCategory(socioProfessionalCategory)
+                .monthlySalary(monthlySalary)
                 .cnapsNumber(null)
                 .registrationNo(null)
                 .build();
         employeeService.save(employeeViewMapper.toDomain(employee), employee.getCodeCountry() , employee.getPhones());
         CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         model.addAttribute("company", company);
-        return "redirect:"+ EmployeeUrl.EMPLOYEES_LIST;
+        return "redirect:"+EmployeeUrl.EMPLOYEES_LIST;
     }
 
     @PostMapping("/modifyEmployee")
@@ -252,6 +254,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
             @RequestParam("hiringDate") String hiringDate,
             @RequestParam("departureDate") String departureDate,
             @RequestParam("socioProfessionalCategory") String socioProfessionalCategory,
+            @RequestParam(value = "monthlySalary", required = false) Integer monthlySalary,
             Model model
             ) {
         if (countryCodes!=null && phones!=null && countryCodes.size()!=phones.size()){
@@ -277,6 +280,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
                 .hiringDate(hiringDate)
                 .departureDate(departureDate)
                 .socioProfessionalCategory(socioProfessionalCategory)
+                .monthlySalary(monthlySalary)
                 .cnapsNumber(null)
                 .registrationNo(null)
                 .build();
