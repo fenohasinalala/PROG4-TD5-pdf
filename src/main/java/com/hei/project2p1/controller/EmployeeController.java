@@ -3,7 +3,6 @@ package com.hei.project2p1.controller;
 import com.hei.project2p1.controller.constant.EmployeeUrl;
 import com.hei.project2p1.controller.mapper.EmployeeViewMapper;
 import com.hei.project2p1.controller.mapper.modelView.EmployeeView;
-import com.hei.project2p1.controller.mapper.utils.ConvertInputTypeToDomain;
 import com.hei.project2p1.exception.BadRequestException;
 import com.hei.project2p1.model.Company;
 import com.hei.project2p1.model.Employee;
@@ -33,10 +32,12 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.hei.project2p1.controller.mapper.utils.ConvertInputTypeToDomain.multipartImageToString;
+import static com.hei.project2p1.controller.mapper.utils.LoadFiles.getImageAsBase64;
 import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPdf;
 
 @Controller
@@ -51,15 +52,36 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
 
 
     @GetMapping(value = EmployeeUrl.EMPLOYEES_SHEET)
-    public void generateDocument(@PathVariable("id") String id, HttpServletResponse response) {
+    public String getEmployeeSheet(@PathVariable("id") String id, HttpServletResponse response) {
 
         Employee employee = employeeService.getEmployeeById(id);
         EmployeeView employeeView = employeeViewMapper.toView(employee,"Not specified");
         Company company = companyService.getCompanyInfo();
+        String logo = getImageAsBase64("static/image/logo.png");
 
         Context context= new Context();
         context.setVariable("employee", employeeView);
         context.setVariable("company", company);
+        context.setVariable("logo", logo);
+        context.setVariable("photo", employeeView.getPhoto().replaceAll("[\\r\\n]", ""));
+
+        return springTemplateEngine.process("sheet-employee", context);
+    }
+
+    @GetMapping(value = EmployeeUrl.EMPLOYEES_SHEET+"/pdf")
+    public void getEmployeeSheetPdf(@PathVariable("id") String id, HttpServletResponse response) {
+
+        Employee employee = employeeService.getEmployeeById(id);
+        EmployeeView employeeView = employeeViewMapper.toView(employee,"Not specified");
+        Company company = companyService.getCompanyInfo();
+        String logo = getImageAsBase64("static/image/logo.png");
+
+        Context context= new Context();
+        context.setVariable("employee", employeeView);
+        context.setVariable("company", company);
+        context.setVariable("logo", logo);
+        employeeView.setPhoto(employeeView.getPhoto().replace(" ",""));
+        context.setVariable("photo", Base64.getEncoder().encodeToString(employeeView.getPhoto().getBytes()));
 
         String dateRef ="-"+ LocalDate.now().getMonth()+"-"+ LocalDate.now().getYear();
         String html = springTemplateEngine.process("sheet-employee", context);
@@ -92,17 +114,12 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
 
     ) {
         List<Employee> employees = employeeService.findEmployeesByCriteria(
-                firstName,
-                lastName,
-                function,
-                countryCode,
-                gender,
-                entranceDateAfter, entranceDateBefore,
-                leaveDateAfter, leaveDateBefore,
-                pageNo, pageSize, sortBy, sortOrder);
+                firstName, lastName, function, countryCode, gender, entranceDateAfter, entranceDateBefore,
+                leaveDateAfter, leaveDateBefore, pageNo, pageSize, sortBy, sortOrder);
         long totalPages = employeeService.getTotalPages(pageSize);
         List<EmployeeView> employeesView = employeeViewMapper.toView(employees);
         List<String> genderList = Stream.of(Employee.Gender.values()).map(Enum::name).toList();
+
         for (EmployeeView ev:employeesView) {
             ev.setPhones(ev.getPhones().stream().map(phone -> PhoneFormatting.reformatPhoneNumber(phone).replace(" ","")).toList());
         }
@@ -126,7 +143,6 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
         model.addAttribute("entrance_after", entranceDateAfter);
         model.addAttribute("leave_before", leaveDateBefore);
         model.addAttribute("leave_after", leaveDateAfter);
-
 
         model.addAttribute("session_id", session.getId());
         model.addAttribute("session", springSessionService.getBySessionId(session.getId()));
@@ -195,7 +211,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
             @RequestParam("socioProfessionalCategory") String socioProfessionalCategory,
             Model model
     ) {
-        String photoTreated = ConvertInputTypeToDomain.multipartImageToString(photo);
+        String photoTreated = multipartImageToString(photo);
         if (countryCodes!=null && phones!=null && countryCodes.size()!=phones.size()){
             throw new BadRequestException("country code and phone number must be specified at the same time");
         }
@@ -260,7 +276,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
                 .firstName(firstName)
                 .lastName(lastName)
                 .birthDate(birthDate)
-                .photo(photo.getOriginalFilename().isEmpty()? photoString : ConvertInputTypeToDomain.multipartImageToString(photo) )
+                .photo(photo.getOriginalFilename().isEmpty()? photoString : multipartImageToString(photo) )
                 .gender(gender)
                 .phones(phones==null?List.of():phones)
                 .codeCountry(countryCodes==null?List.of():countryCodes)

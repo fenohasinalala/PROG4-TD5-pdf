@@ -70,7 +70,7 @@
             text-align: center;
             position: absolute;
             top: calc(100% + 20px); /* Juste en dessous de bas-de-page */
-            left: 50%; /* Centre horizontalement */
+            left: 30%; /* Centre horizontalement */
             transform: translateX(-50%); /* Centrage horizontal */
         }
 
@@ -86,7 +86,7 @@
 <div class="a5-page">
     <div class="header">
         <div class="photo">
-            <!-- Insérez ici la balise pour afficher la photo d'employé -->
+                <img th:src="'data:image/png;base64,' + ${employee.photo}" style="width: auto; height: 80px;" alt="Photo" />
         </div>
         <div class="fiche-employe">
             <h1>FICHE EMPLOYÉ</h1>
@@ -108,7 +108,7 @@
 
     <div class="bas-de-page">
         <div class="logo">
-            <!-- Insérez ici la balise pour afficher le logo de l'entreprise -->
+            <img th:src="'data:image/png;base64,' + ${logo}" alt="Company Logo" class="d-block" style="width: auto; height: 80px;" />
         </div>
         <div class="info-entreprise-p1">
             <p>Entrepise: <span th:text="${company.getCompanyName()}"></span></p>

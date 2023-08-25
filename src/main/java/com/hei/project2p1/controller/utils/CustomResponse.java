@@ -19,7 +19,7 @@ public class CustomResponse {
             renderer.createPDF(outputStream);
             outputStream.close();
         }catch (Exception e){
-            throw new RuntimeException("Pdf creation error");
+            throw new RuntimeException(e);
         }
 
     }

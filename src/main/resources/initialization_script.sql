@@ -4,4 +4,8 @@ VALUES('admin', '$2a$12$Bm2EgKw2WZ5T4lpagVi1iOxWZmla76Z0C0jcLCP4q7v4hDsZ2heMS', 
 
 INSERT INTO company
 (id, company_name, company_description, slogan, address, contact_email, nif, stat, rcs, logo)
-VALUES('1', 'ERAF', 'entreprise de BTP', 'De bon fondation pour un bon batiment', 'Ambohitrarahaba', 'eraf@moov.mg', '1234', '31231', '321313', NULL) ON CONFLICT DO NOTHING;
+VALUES
+    ('1', 'ABC Corporation', 'A global leader in innovation', 'Innovate for a brighter future', '123 Main St, Cityville', 'contact@abccorp.com', '123456789', '987654123', '987654', NULL) ON CONFLICT DO NOTHING;
+INSERT INTO phone
+(id, "number", employee_id, company_id, country_code)
+VALUES('company_phone_id1', '0384550518', NULL, '1', '261')ON CONFLICT DO NOTHING;;
