@@ -1,0 +1,1 @@
+ALTER TABLE phone add column if not exists  country_code varchar default '+261';
