@@ -16,10 +16,15 @@
             height: 2.5em;
             background-color: lightgray;
             border-radius: 50%;
+            position: relative;
+            top: calc(30% + 20px)
         }
 
         .fiche-employe {
+            flex: 1;
             text-align: right;
+            position: relative;
+            top: calc(0% + 20px)
         }
 
         /* Styles pour le corps */
@@ -86,7 +91,7 @@
 <div class="a5-page">
     <div class="header">
         <div class="photo">
-                <img th:src="'data:image/png;base64,' + ${employee.photo}" style="width: auto; height: 80px;" alt="Photo" />
+                <img th:src="'data:image/png;base64,' + ${employee.photo}" style="width: auto; height: 120px;" alt="Photo" />
         </div>
         <div class="fiche-employe">
             <h1>FICHE EMPLOYÉ</h1>

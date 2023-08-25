@@ -55,23 +55,6 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
 
 
     @GetMapping(value = EmployeeUrl.EMPLOYEES_SHEET)
-    public String getEmployeeSheet(@PathVariable("id") String id, HttpServletResponse response) {
-
-        Employee employee = employeeService.getEmployeeById(id);
-        EmployeeView employeeView = employeeViewMapper.toView(employee,"Not specified");
-        CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
-        String logo = getImageAsBase64("static/image/logo.png");
-
-        Context context= new Context();
-        context.setVariable("employee", employeeView);
-        context.setVariable("company", company);
-        context.setVariable("logo", logo);
-        context.setVariable("photo", employeeView.getPhoto().replaceAll("[\\r\\n]", ""));
-
-        return springTemplateEngine.process("sheet-employee", context);
-    }
-
-    @GetMapping(value = EmployeeUrl.EMPLOYEES_SHEET+"/pdf")
     public void getEmployeeSheetPdf(@PathVariable("id") String id, HttpServletResponse response) {
 
         Employee employee = employeeService.getEmployeeById(id);
