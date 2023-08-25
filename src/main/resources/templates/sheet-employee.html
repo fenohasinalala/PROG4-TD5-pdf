@@ -107,7 +107,8 @@
 
     <div class="corps">
         <h2>Informations sur le salaire</h2>
-        <p>Salaire brut actuel: <span th:text="${employee.getCinIssuePlace()}"></span> Ariary / mois</p>
+        <span th:if="${employee.monthlySalary == null}">Not specified</span>
+        <span th:if="${employee.monthlySalary != null}" th:text="${employee.monthlySalary + ' Ariary / mois'}"></span>
     </div>
 
 
