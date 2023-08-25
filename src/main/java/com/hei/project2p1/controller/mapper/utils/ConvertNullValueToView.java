@@ -48,6 +48,8 @@ public class ConvertNullValueToView {
                 if (field.get(obj) == null) {
                     if (field.getType() == List.class) {
                         field.set(obj, List.of());
+                    } else if (field.getType() == Integer.class) {
+                        field.set(obj, null);
                     } else {
                         field.set(obj, nullReplacement);
                     }

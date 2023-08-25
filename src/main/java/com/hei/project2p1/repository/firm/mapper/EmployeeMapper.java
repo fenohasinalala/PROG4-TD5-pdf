@@ -35,6 +35,7 @@ public class EmployeeMapper {
                 .cnapsNumber(entity.getCnapsNumber())
                 .photo(entity.getPhoto())
                 .endToEndId(entity.getEndToEndId())
+                .monthlySalary(entity.getMonthlySalary())
                 .build();
     }
 
@@ -61,6 +62,7 @@ public class EmployeeMapper {
                 .cnapsNumber(domain.getCnapsNumber())
                 .photo(domain.getPhoto())
                 .endToEndId(domain.getEndToEndId())
+                .monthlySalary(domain.getMonthlySalary())
                 .build();
     }
 

@@ -95,6 +95,8 @@ public class EmployeeEntity implements Serializable {
 
     private String endToEndId;
 
+    private Integer monthlySalary;
+
     public enum Gender {
         H, F
     }
