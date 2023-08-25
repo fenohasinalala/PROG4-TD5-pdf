@@ -89,8 +89,8 @@
         <th>Departure Date</th>
         <th>Socio-Professional Category</th>
         <th>CNAPS Number</th>
-        <th>Details</th>
-        <th>Update</th>
+        <th>Salary</th>
+        <th>Action</th>
     </tr>
     <tr th:each="employee : ${employees}">
         <td>
@@ -121,11 +121,9 @@
         <td th:text="${employee.departureDate}"></td>
         <td th:text="${employee.socioProfessionalCategory}"></td>
         <td th:text="${employee.cnapsNumber}"></td>
-
+        <td th:text="${employee.monthlySalary}"></td>
         <td>
             <a th:href="@{/employees/{id}/details(id=${employee.id})}">Details</a>
-        </td>
-        <td>
             <a th:href="@{/employees/{id}/update(id=${employee.id})}">Update</a>
         </td>
     </tr>
