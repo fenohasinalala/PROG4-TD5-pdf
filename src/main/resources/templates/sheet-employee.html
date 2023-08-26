@@ -94,22 +94,22 @@
                 <img th:src="'data:image/png;base64,' + ${employee.photo}" style="width: auto; height: 120px;" alt="Photo" />
         </div>
         <div class="fiche-employe">
-            <h1>FICHE EMPLOYÉ</h1>
-            <p>Numéro matricule: <span th:text="${employee.getRegistrationNo()}"></span></p>
-            <p>Noms: <span th:text="${employee.getLastName()}"></span></p>
-            <p>Prénoms: <span th:text="${employee.getFirstName()}"></span></p>
-            <p>Âge: <span th:if="${age == null}">Not specified</span></p>
-            <p><span th:if="${age != null}" th:text="${age}"> ans</span></p>
-            <p>Date d'embauche: <span th:text="${employee.getHiringDate()}"></span></p>
-            <p>Date de départ: <span th:text="${employee.getDepartureDate()}"></span></p>
-            <p>Numéro CNAPS: <span th:text="${employee.getCnapsNumber()}"></span></p>
+            <h1>EMPLOYEE RECORD</h1>
+            <p>Registration Number: <span th:text="${employee.getRegistrationNo()}"></span></p>
+            <p>Last Name: <span th:text="${employee.getLastName()}"></span></p>
+            <p>First Name: <span th:text="${employee.getFirstName()}"></span></p>
+            <p>Age: <span th:if="${age == null}">Not specified</span></p>
+            <p><span th:if="${age != null}" th:text="${age}"> years</span></p>
+            <p>Hiring Date: <span th:text="${employee.getHiringDate()}"></span></p>
+            <p>Departure Date: <span th:text="${employee.getDepartureDate()}"></span></p>
+            <p>CNAPS Number: <span th:text="${employee.getCnapsNumber()}"></span></p>
         </div>
     </div>
 
     <div class="corps">
-        <h2>Informations sur le salaire</h2>
+        <h2>Salary Information</h2>
         <span th:if="${employee.monthlySalary == null}">Not specified</span>
-        <span th:if="${employee.monthlySalary != null}" th:text="${employee.monthlySalary + ' Ariary / mois'}"></span>
+        <span th:if="${employee.monthlySalary != null}" th:text="${employee.monthlySalary + ' Ariary / month'}"></span>
     </div>
 
 
@@ -118,13 +118,13 @@
             <img th:src="'data:image/png;base64,' + ${logo}" alt="Company Logo" class="d-block" style="width: auto; height: 80px;" />
         </div>
         <div class="info-entreprise-p1">
-            <p>Entrepise: <span th:text="${company.getCompanyName()}"></span></p>
+            <p>Company: <span th:text="${company.getCompanyName()}"></span></p>
             <p>NIF: <span th:text="${company.getNif()}"></span></p>
             <p>STAT: <span th:text="${company.getStat()}"></span></p>
         </div>
         <div class="info-entreprise-p2">
-            <p>Adresse: <span th:text="${company.getAddress()}"></span></p>
-            <p>Téléphone: <span th:text="${company.getPhones()}"></span></p>
+            <p>Address: <span th:text="${company.getAddress()}"></span></p>
+            <p>Phone: <span th:text="${company.getPhones()}"></span></p>
             <p>Email: <span th:text="${company.getContactEmail()}"></span></p>
         </div>
     </div>
