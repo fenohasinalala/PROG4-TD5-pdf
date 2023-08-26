@@ -59,11 +59,13 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
 
         Employee employee = employeeService.getEmployeeById(id);
         EmployeeView employeeView = employeeViewMapper.toView(employee,"Not specified");
+        Integer employeeAge = employeeService.getAgeOfEmployee(employee);
         CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         String logo = getImageAsBase64("static/image/logo.png");
 
         Context context= new Context();
         context.setVariable("employee", employeeView);
+        context.setVariable("age",employeeAge);
         context.setVariable("company", company);
         context.setVariable("logo", logo);
         employeeView.setPhoto(employeeView.getPhoto().replace(" ",""));
@@ -288,7 +290,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
         employeeService.save(employeeViewMapper.toDomain(employee), employee.getCodeCountry(), employee.getPhones());
         CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         model.addAttribute("company", company);
-        return "redirect:"+"/employees/"+id+"/details";
+        return "redirect:/employees/%s/details".formatted(id);
     }
 
     @GetMapping("/exportEmployees")

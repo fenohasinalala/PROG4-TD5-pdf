@@ -5,6 +5,7 @@ import com.hei.project2p1.model.Employee;
 import com.hei.project2p1.model.Phone;
 import com.hei.project2p1.model.Validator.PhoneValidator;
 import com.hei.project2p1.repository.EmployeeConnectorRepository;
+import com.hei.project2p1.service.utils.AgeCalculator.AgeCalculator;
 import com.hei.project2p1.utils.PaginationUtils;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.Objects;
 @Service
 @AllArgsConstructor
 public class EmployeeService {
+    private final AgeCalculator ageCalculator;
     private final String REGISTRATION_PREFIX = "EMP";
     private final RegistrationNoTrackerService registrationNoTrackerService;
 
@@ -27,6 +29,13 @@ public class EmployeeService {
     private final PhoneService phoneService;
     private final PhoneValidator phoneValidator;
 
+    public Integer getAgeOfEmployee(Employee employee){
+        LocalDate birthDate = employee.getBirthDate();
+        if (birthDate==null){
+            return null;
+        }
+        return ageCalculator.getAge(birthDate,AgeCalculator.DAY);
+    }
 
     public Employee getEmployeeById(String id){
         return employeeConnectorRepository.findById(id);
