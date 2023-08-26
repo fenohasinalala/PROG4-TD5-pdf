@@ -6,7 +6,6 @@ import com.hei.project2p1.controller.mapper.EmployeeViewMapper;
 import com.hei.project2p1.controller.mapper.modelView.CompanyView;
 import com.hei.project2p1.controller.mapper.modelView.EmployeeView;
 import com.hei.project2p1.exception.BadRequestException;
-import com.hei.project2p1.model.Company;
 import com.hei.project2p1.model.Employee;
 import com.hei.project2p1.service.CompanyService;
 import com.hei.project2p1.service.EmployeeService;
@@ -16,8 +15,6 @@ import com.hei.project2p1.utils.PhoneFormatting;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -51,7 +48,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
     private final CompanyService companyService;
     private final SpringSessionService springSessionService;
     private final SpringTemplateEngine springTemplateEngine;
-    private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+    //private static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 
 
     @GetMapping(value = EmployeeUrl.EMPLOYEES_SHEET)

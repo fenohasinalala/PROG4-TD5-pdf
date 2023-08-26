@@ -1,5 +1,6 @@
 package com.hei.project2p1.repository;
 
+import com.hei.project2p1.exception.ApiException;
 import com.hei.project2p1.model.Employee;
 import com.hei.project2p1.repository.cnaps.EmployeeCnapsRepository;
 import com.hei.project2p1.repository.cnaps.entity.EmployeeCnapsEntity;
@@ -20,12 +21,12 @@ public class CnapsEmployeeConnectorRepository implements EmployeeConnectorReposi
 
     @Override
     public double count() {
-        throw new RuntimeException(UNSUPPORTED_ERROR_MESSAGE);
+        throw new ApiException(UNSUPPORTED_ERROR_MESSAGE);
     }
 
     @Override
     public Employee save(Employee toSave) {
-        throw new RuntimeException(UNSUPPORTED_ERROR_MESSAGE);    }
+        throw new ApiException(UNSUPPORTED_ERROR_MESSAGE);    }
 
 
     @Override
@@ -41,11 +42,11 @@ public class CnapsEmployeeConnectorRepository implements EmployeeConnectorReposi
     public List<Employee> findByCriteria(String firstName, String lastName, String function, String countryCode,
                                          String gender, LocalDate entranceDateAfter, LocalDate entranceDateBefore,
                                          LocalDate leaveDateAfter, LocalDate leaveDateBefore, Pageable pageable) {
-        throw new RuntimeException(UNSUPPORTED_ERROR_MESSAGE);
+        throw new ApiException(UNSUPPORTED_ERROR_MESSAGE);
     }
 
     @Override
     public Employee addSupplementaryInformation(String id, Employee toSupply) {
-        throw new RuntimeException(UNSUPPORTED_ERROR_MESSAGE);
+        throw new ApiException(UNSUPPORTED_ERROR_MESSAGE);
     }
 }

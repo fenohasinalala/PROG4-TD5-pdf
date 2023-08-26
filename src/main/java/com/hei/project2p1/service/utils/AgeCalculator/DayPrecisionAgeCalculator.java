@@ -1,8 +1,11 @@
 package com.hei.project2p1.service.utils.AgeCalculator;
 
+import com.hei.project2p1.exception.ApiException;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+
+import static com.hei.project2p1.controller.constant.CommonErrorMessage.UNSUPPORTED_ERROR_MESSAGE;
 
 @Component
 public class DayPrecisionAgeCalculator implements AgeCalculator{
@@ -24,7 +27,7 @@ public class DayPrecisionAgeCalculator implements AgeCalculator{
 
     @Override
     public int getAge(LocalDate date, Precision precision) {
-        return 0;
+        throw new ApiException(UNSUPPORTED_ERROR_MESSAGE);
     }
 
 
