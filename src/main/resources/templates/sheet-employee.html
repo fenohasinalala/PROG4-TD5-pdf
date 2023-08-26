@@ -98,7 +98,8 @@
             <p>Numéro matricule: <span th:text="${employee.getRegistrationNo()}"></span></p>
             <p>Noms: <span th:text="${employee.getLastName()}"></span></p>
             <p>Prénoms: <span th:text="${employee.getFirstName()}"></span></p>
-            <p>Âge: <span th:text="${age}"></span> ans</p>
+            <p>Âge: <span th:if="${age == null}">Not specified</span></p>
+            <p><span th:if="${age != null}" th:text="${age}"> ans</span></p>
             <p>Date d'embauche: <span th:text="${employee.getHiringDate()}"></span></p>
             <p>Date de départ: <span th:text="${employee.getDepartureDate()}"></span></p>
             <p>Numéro CNAPS: <span th:text="${employee.getCnapsNumber()}"></span></p>
