@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Fiche Employé</title>
     <style>
         .header {
@@ -91,7 +91,7 @@
 <div class="a5-page">
     <div class="header">
         <div class="photo">
-                <img th:src="'data:image/png;base64,' + ${employee.photo}" style="width: auto; height: 120px;" alt="Photo" />
+            <img th:src="'data:image/png;base64,' + ${employee.photo}" style="width: auto; height: 120px;" alt="Photo"/>
         </div>
         <div class="fiche-employe">
             <h1>EMPLOYEE RECORD</h1>
@@ -117,7 +117,8 @@
 
     <div class="bas-de-page">
         <div class="logo">
-            <img th:src="'data:image/png;base64,' + ${logo}" alt="Company Logo" class="d-block" style="width: auto; height: 80px;" />
+            <img th:src="'data:image/png;base64,' + ${logo}" alt="Company Logo" class="d-block"
+                 style="width: auto; height: 80px;"/>
         </div>
         <div class="info-entreprise-p1">
             <p>Company: <span th:text="${company.getCompanyName()}"></span></p>

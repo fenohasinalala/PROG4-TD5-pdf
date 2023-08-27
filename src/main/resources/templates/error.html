@@ -10,7 +10,8 @@
 <div class="container min-vh-100 d-flex justify-content-center align-items-center">
     <div class="text-center">
         <h1 class="display-1 mb-4" th:text="${status != null ? status :  'error :'}"></h1>
-        <h4 class="display-4 mb-4" th:text="${exception != null ? exception.message : (message != null ? message : 'Error')}"></h4>
+        <h4 class="display-4 mb-4"
+            th:text="${exception != null ? exception.message : (message != null ? message : 'Error')}"></h4>
         <a href="/" class="btn btn-primary">Go home</a>
     </div>
 </div>

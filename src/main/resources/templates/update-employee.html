@@ -8,133 +8,136 @@
 </head>
 <body>
 <div id="page-container">
-<div th:replace="~{fragments/header :: header}"></div>
-<h1>Modify Employee</h1>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <h1>Modify Employee</h1>
 
-<div class="container mt-5">
-    <form th:action="@{/modifyEmployee}" method="post" enctype="multipart/form-data" class="employeeForm">
-        <div class="col-sm-10"><input type="hidden" class="form-control" name="id" th:value="${employee.id}"/></div>
-        <div class="col-sm-10"><input type="hidden" class="form-control" name="photoString"
-                                      th:value="${employee.photo}"></div>
-        <div class="imageContainer">
-            <img id="currentImage" th:src="'data:image/png;base64,' + ${employee.photo}" alt="Photo"
-                 th:if="${employee.photo!=null && employee.photo.length()>0}" width="300"/><br/>
-            <img id="selectedImage" src="#" alt="Selected Image" width="300" style="display: none;"/><br/>
-        </div>
-        <div class="formPart1">
-            <label class=" col-form-label">First Name:</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="firstName" th:value="${employee.firstName}"
-                       required/></div>
-            <br/>
-
-            <label class=" col-form-label">Last Name:</label>
-            <div class="col-sm-10"><input type="text" class="form-control" name="lastName" th:value="${employee.lastName}"
-                                          required/></div>
-            <br/>
-
-            <label class=" col-form-label">Birth Date:</label>
-            <div class="col-sm-10"><input type="date" class="form-control" name="birthDate"
-                                          th:value="${employee.birthDate}"/></div>
-            <br/>
-
-
-            <label class=" col-form-label">Gender:</label>
-            <select class="form-control" name="gender">
-                <option th:each="gender: ${genders}"
-                        th:value="${gender}" th:text="${gender}" th:selected="${gender == employee.gender}"></option>
-            </select><br/>
-
-            <label class=" col-form-label">Number of Children:</label>
-            <div class="col-sm-10"><input type="number" class="form-control" name="numberOfChildren"
-                                          th:value="${employee.numberOfChildren}" min="0"/></div>
-            <br/>
-
-
-
-            <label class=" col-form-label">Address:</label>
-            <div class="col-sm-10"><input type="text" class="form-control" name="address" th:value="${employee.address}"/>
+    <div class="container mt-5">
+        <form th:action="@{/modifyEmployee}" method="post" enctype="multipart/form-data" class="employeeForm">
+            <div class="col-sm-10"><input type="hidden" class="form-control" name="id" th:value="${employee.id}"/></div>
+            <div class="col-sm-10"><input type="hidden" class="form-control" name="photoString"
+                                          th:value="${employee.photo}"></div>
+            <div class="imageContainer">
+                <img id="currentImage" th:src="'data:image/png;base64,' + ${employee.photo}" alt="Photo"
+                     th:if="${employee.photo!=null && employee.photo.length()>0}" width="300"/><br/>
+                <img id="selectedImage" src="#" alt="Selected Image" width="300" style="display: none;"/><br/>
             </div>
-            <br/>
+            <div class="formPart1">
+                <label class=" col-form-label">First Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="firstName" th:value="${employee.firstName}"
+                           required/></div>
+                <br/>
 
-            <label class=" col-form-label">Personal Email:</label>
-            <div class="col-sm-10"><input type="email" class="form-control" name="personalEmail"
-                                          th:value="${employee.personalEmail}"/></div>
-            <br/>
+                <label class=" col-form-label">Last Name:</label>
+                <div class="col-sm-10"><input type="text" class="form-control" name="lastName"
+                                              th:value="${employee.lastName}"
+                                              required/></div>
+                <br/>
 
-            <label class=" col-form-label">Professional Email:</label>
-            <div class="col-sm-10"><input type="email" class="form-control" name="professionalEmail"
-                                          th:value="${employee.professionalEmail}"/></div>
-            <br/>
+                <label class=" col-form-label">Birth Date:</label>
+                <div class="col-sm-10"><input type="date" class="form-control" name="birthDate"
+                                              th:value="${employee.birthDate}"/></div>
+                <br/>
 
-            <label class=" col-form-label">Phones:</label>
 
-            <div class="col-sm-10"><input type="hidden" th:each="existingNumber : ${employee.phones}" class="form-control"
-                                          name="existingNumbers" th:value="${existingNumber}"/></div>
-            <div id="phones">
+                <label class=" col-form-label">Gender:</label>
+                <select class="form-control" name="gender">
+                    <option th:each="gender: ${genders}"
+                            th:value="${gender}" th:text="${gender}"
+                            th:selected="${gender == employee.gender}"></option>
+                </select><br/>
+
+                <label class=" col-form-label">Number of Children:</label>
+                <div class="col-sm-10"><input type="number" class="form-control" name="numberOfChildren"
+                                              th:value="${employee.numberOfChildren}" min="0"/></div>
+                <br/>
+
+
+                <label class=" col-form-label">Address:</label>
+                <div class="col-sm-10"><input type="text" class="form-control" name="address"
+                                              th:value="${employee.address}"/>
+                </div>
+                <br/>
+
+                <label class=" col-form-label">Personal Email:</label>
+                <div class="col-sm-10"><input type="email" class="form-control" name="personalEmail"
+                                              th:value="${employee.personalEmail}"/></div>
+                <br/>
+
+                <label class=" col-form-label">Professional Email:</label>
+                <div class="col-sm-10"><input type="email" class="form-control" name="professionalEmail"
+                                              th:value="${employee.professionalEmail}"/></div>
+                <br/>
+
+                <label class=" col-form-label">Phones:</label>
+
+                <div class="col-sm-10"><input type="hidden" th:each="existingNumber : ${employee.phones}"
+                                              class="form-control"
+                                              name="existingNumbers" th:value="${existingNumber}"/></div>
+                <div id="phones">
+                </div>
+                <button type="button" onclick="addPhone()">Add Phone</button>
+                <br/>
+
+
             </div>
-            <button type="button" onclick="addPhone()">Add Phone</button>
-            <br/>
 
+            <div class="formPart2">
 
-        </div>
+                <label class=" col-form-label">Photo:</label>
+                <div class="col-sm-10"><input type="file" class="form-control" name="photo" id="photoInput"
+                                              onchange="showSelectedImage(event)"/></div>
+                <br/>
 
-        <div class="formPart2">
+                <label class=" col-form-label">CIN Number:</label>
+                <div class="col-sm-10"><input type="text" class="form-control" name="cinNumber"
+                                              th:value="${employee.cinNumber}"/></div>
+                <br/>
 
-            <label class=" col-form-label">Photo:</label>
-            <div class="col-sm-10"><input type="file" class="form-control" name="photo" id="photoInput"
-                                          onchange="showSelectedImage(event)"/></div>
-            <br/>
+                <label class=" col-form-label">CIN Issue Date:</label>
+                <div class="col-sm-10"><input type="date" class="form-control" name="cinIssueDate"
+                                              th:value="${employee.cinIssueDate}"/></div>
+                <br/>
 
-            <label class=" col-form-label">CIN Number:</label>
-            <div class="col-sm-10"><input type="text" class="form-control" name="cinNumber"
-                                          th:value="${employee.cinNumber}"/></div>
-            <br/>
+                <label class=" col-form-label">CIN Issue Place:</label>
+                <div class="col-sm-10"><input type="text" class="form-control" name="cinIssuePlace"
+                                              th:value="${employee.cinIssuePlace}"/></div>
+                <br/>
 
-            <label class=" col-form-label">CIN Issue Date:</label>
-            <div class="col-sm-10"><input type="date" class="form-control" name="cinIssueDate"
-                                          th:value="${employee.cinIssueDate}"/></div>
-            <br/>
+                <label class=" col-form-label">Function:</label>
+                <div class="col-sm-10"><input type="text" class="form-control" name="function"
+                                              th:value="${employee.function}"/>
+                </div>
+                <br/>
 
-            <label class=" col-form-label">CIN Issue Place:</label>
-            <div class="col-sm-10"><input type="text" class="form-control" name="cinIssuePlace"
-                                          th:value="${employee.cinIssuePlace}"/></div>
-            <br/>
+                <label class=" col-form-label">Hiring Date:</label>
+                <div class="col-sm-10"><input type="date" class="form-control" name="hiringDate"
+                                              th:value="${employee.hiringDate}"/></div>
+                <br/>
 
-            <label class=" col-form-label">Function:</label>
-            <div class="col-sm-10"><input type="text" class="form-control" name="function" th:value="${employee.function}"/>
+                <label class=" col-form-label">Departure Date:</label>
+                <div class="col-sm-10"><input type="date" class="form-control" name="departureDate"
+                                              th:value="${employee.departureDate}"/></div>
+                <br/>
+
+                <label class=" col-form-label">Socio-Professional Category:</label>
+                <select class="form-control" name="socioProfessionalCategory">
+                    <option th:each="category : ${categories}"
+                            th:value="${category}" th:text="${category}"
+                            th:selected="${category == employee.socioProfessionalCategory}"></option>
+                </select><br/>
+
+                <br/>
+                <label class=" col-form-label">Monthly Salary:</label>
+                <div class="col-sm-10"><input type="number" class="form-control" name="monthlySalary" min="0"
+                                              th:value="${employee.monthlySalary}"/></div>
+                <br>
             </div>
-            <br/>
-
-            <label class=" col-form-label">Hiring Date:</label>
-            <div class="col-sm-10"><input type="date" class="form-control" name="hiringDate"
-                                          th:value="${employee.hiringDate}"/></div>
-            <br/>
-
-            <label class=" col-form-label">Departure Date:</label>
-            <div class="col-sm-10"><input type="date" class="form-control" name="departureDate"
-                                          th:value="${employee.departureDate}"/></div>
-            <br/>
-
-            <label class=" col-form-label">Socio-Professional Category:</label>
-            <select class="form-control" name="socioProfessionalCategory">
-                <option th:each="category : ${categories}"
-                        th:value="${category}" th:text="${category}"
-                        th:selected="${category == employee.socioProfessionalCategory}"></option>
-            </select><br/>
-
-            <br/>
-            <label class=" col-form-label">Monthly Salary:</label>
-            <div class="col-sm-10"><input type="number" class="form-control" name="monthlySalary"  min="0" th:value="${employee.monthlySalary}"/></div>
-            <br>
-        </div>
 
 
-
-
-        <div class="col-sm-12"> <input type="submit" value="Save" class="submitButton"/></div>
-    </form>
-</div>
+            <div class="col-sm-12"><input type="submit" value="Save" class="submitButton"/></div>
+        </form>
+    </div>
     <div id="content-wrap"></div>
     <div th:insert="~{fragments/footer :: footer}"></div>
 </div>
