@@ -11,7 +11,7 @@
 <div th:replace="~{fragments/header :: header}"></div>
 <h1>Employee List</h1>
 
-<form th:action="@{/exportEmployees}" method="get" >
+<form th:action="@{/exportEmployees}" method="get" class="employeeSearchForm">
     <input type="number" name="page" hidden="hidden" id="_page" th:value="${page}"/> <br>
     <input type="number" name="page_size" hidden="hidden" id="_page_size" th:value="${pageSize}"/> <br>
     <input type="text" name="sort_by" hidden="hidden" id="_sort_by" th:value="${sortField}"/> <br>

@@ -18,16 +18,48 @@ h1 {
 }
 
 form {
-    width: 400px;
-    margin: 0 auto;
+    min-width: 640px;
+    margin: 40px auto;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 5px #888888;
 }
 
-.labelForm {
+.imageContainer{
+    width: 100%;
+}
+
+.formPart1 {
+    width: 55%;
+    padding: 20px;
+}
+
+.formPart2 {
+    width: 45%;
+    padding: 20px;
+}
+
+@media (max-width: 992px) {
+    .formPart1,
+    .formPart2 {
+        width: 100%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 769px) {
+    .formPart1,
+    .formPart2 {
+        width: 100%;
+        padding: 20px;
+        min-width: 770px;
+    }
+}
+
+.col-form-label {
     font-weight: bold;
+    width: 80%;
 }
 
 .employeeForm {
