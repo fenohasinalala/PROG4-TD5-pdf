@@ -1,136 +1,140 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset = "UTF-8" />
+    <meta charset="UTF-8"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <link href = "/css/styles.css" rel = "stylesheet"/>
+    <link href="/css/styles.css" rel="stylesheet"/>
+    <link href="/css/list-employee.css" rel="stylesheet"/>
     <title>Employee Management</title>
 </head>
 <body>
 <div id="page-container">
-<div th:replace="~{fragments/header :: header}"></div>
-<h1>Employee List</h1>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <h1>Employee List</h1>
 
-<form th:action="@{/exportEmployees}" method="get" class="employeeSearchForm">
-    <input type="number" name="page" hidden="hidden" id="_page" th:value="${page}"/> <br>
-    <input type="number" name="page_size" hidden="hidden" id="_page_size" th:value="${pageSize}"/> <br>
-    <input type="text" name="sort_by" hidden="hidden" id="_sort_by" th:value="${sortField}"/> <br>
-    <input type="text" name="sort_order" hidden="hidden" id="_sort_order" th:value="${sortOrder}"/> <br>
-    <input type="text" name="last_name" id="_last_name" th:value="${lastName}" hidden="hidden"/> <br>
-    <input type="text" name="first_name" id="_first_name" th:value="${firstName}" hidden="hidden"><br>
-    <input type="text" name="gender" id="_gender" th:value="${gender}" hidden="hidden"><br>
-    <input type="text" name="function" id="_function" th:value="${function}" hidden="hidden"><br>
-    <input type="date" name="entrance_after" id="_entrance_after" th:value="${entrance_after}" hidden="hidden"/>
-    <input type="date" name="entrance_before" id="_entrance_before" th:value="${entrance_before}" hidden="hidden"/> <br>
-    <input type="date" name="leave_after" id="_leave_after" th:value="${leave_after}" hidden="hidden"/>
-    <input type="date" name="leave_before" id="_leave_before" th:value="${leave_before}" hidden="hidden"/> <br>
-    <button type="submit">Export CSV</button>
-</form>
 
-<form action="#" th:action="@{/employees}" method="get">
-    <input type="number" name="page" hidden="hidden" id="page" th:value="${page}"/> <br>
-    <input type="text" name="sort_by" hidden="hidden" id="sort_by" th:value="${sortField}"/> <br>
-    <input type="text" name="sort_order" hidden="hidden" id="sort_order" th:value="${sortOrder}"/> <br>
-    <label>Search by Last Name:</label>
-    <input type="text" name="last_name" id="last_name" th:value="${lastName}"/> <br>
-    <label>Search by First Name:</label>
-    <input type="text" name="first_name" id="first_name" th:value="${firstName}"><br>
-    <label>Search by function:</label>
-    <input type="text" name="function" id="function" th:value="${function}"><br>
-    <label>Search by country code:</label>
-    <input type="text" name="country_code" id="country_code" th:value="${countryCode}"><br>
-    <label>Filter by Gender:</label>
-    <select id="gender" name="gender" th:value="${gender}">
-        <option value="">All</option>
-        <option th:each="genderOption : ${genderList}"
-                th:value="${genderOption}"
-                th:text="${genderOption == 'H' ? 'Male' : (genderOption == 'F' ? 'Female' : 'Unknown')}"></option>
-    </select> <br>
 
-    <label>Entrance between :</label>
-    <input type="date" name="entrance_after" id="entrance_after" th:value="${entrance_after}"/>
-    <input type="date" name="entrance_before" id="entrance_before" th:value="${entrance_before}"/> <br>
+    <form action="#" th:action="@{/employees}" method="get" class="employeeSearchForm">
+        <input type="number" name="page" hidden="hidden" id="page" th:value="${page}"/>
+        <input type="text" name="sort_by" hidden="hidden" id="sort_by" th:value="${sortField}"/>
+        <input type="text" name="sort_order" hidden="hidden" id="sort_order" th:value="${sortOrder}"/>
+        <label class="search-label">Search by Last Name:</label>
+        <input type="text" name="last_name" id="last_name" th:value="${lastName}"/> <br>
+        <label class="search-label">Search by First Name:</label>
+        <input type="text" name="first_name" id="first_name" th:value="${firstName}"><br>
+        <label class="search-label">Search by function:</label>
+        <input type="text" name="function" id="function" th:value="${function}"><br>
+        <label class="search-label">Search by country code:</label>
+        <input type="text" name="country_code" id="country_code" th:value="${countryCode}"><br>
+        <label class="search-label">Filter by Gender:</label>
+        <select id="gender" name="gender" th:value="${gender}">
+            <option value="">All</option>
+            <option th:each="genderOption : ${genderList}"
+                    th:value="${genderOption}"
+                    th:text="${genderOption == 'H' ? 'Male' : (genderOption == 'F' ? 'Female' : 'Unknown')}"></option>
+        </select> <br>
 
-    <label>Leave between :</label>
-    <input type="date" name="leave_after" id="leave_after" th:value="${leave_after}"/>
-    <input type="date" name="leave_before" id="leave_before" th:value="${leave_before}"/> <br>
+        <label class="search-label">Entrance between :</label>
+        <input type="date" name="entrance_after" id="entrance_after" th:value="${entrance_after}"/>
+        <input type="date" name="entrance_before" id="entrance_before" th:value="${entrance_before}"/> <br>
 
-    <label>Page size:</label>
-    <input type="number" name="page_size"  id="page_size" th:value="${pageSize}"/> <br>
-    <button type="submit">Search</button>
-</form>
+        <label class="search-label">Leave between :</label>
+        <input type="date" name="leave_after" id="leave_after" th:value="${leave_after}"/>
+        <input type="date" name="leave_before" id="leave_before" th:value="${leave_before}"/> <br>
 
-<table class="employee-table">
-    <tr>
-        <th>Photo</th>
-        <th>
-            <div th:replace="~{fragments/sort-link :: sort_link(sortField='firstName', sortText=${sortField eq 'firstName' ? (sortOrder eq 'ASC' ? 'First Name ▲' : 'First Name ▼') : 'First Name'})}"></div>
-        </th>
-        <th>
-            <div th:replace="~{fragments/sort-link :: sort_link(sortField='lastName', sortText=${sortField eq 'lastName' ? (sortOrder eq 'ASC' ? 'Last Name ▲' : 'Last Name ▼') : 'Last Name'})}"></div>
-        </th>
-        <th>Registration Number</th>
-        <th>Birth Date</th>
-        <th>
-            <div th:replace="~{fragments/sort-link :: sort_link(sortField='gender', sortText=${sortField eq 'gender' ? (sortOrder eq 'ASC' ? 'Gender ▲' : 'Gender ▼') : 'Gender'})}"></div>
-        </th>
-        <th>Phones</th>
-        <th>Address</th>
-        <th>Personal Email</th>
-        <th>Professional Email</th>
-        <th>CIN Number</th>
-        <th>CIN Issue Date</th>
-        <th>CIN Issue Place</th>
-        <th>
-            <div th:replace="~{fragments/sort-link :: sort_link(sortField='function', sortText=${sortField eq 'function' ? (sortOrder eq 'ASC' ? 'Function ▲' : 'Function ▼') : 'Function'})}"></div>
-        </th>
-        <th>Number of Children</th>
-        <th>Hiring Date</th>
-        <th>Departure Date</th>
-        <th>Socio-Professional Category</th>
-        <th>CNAPS Number</th>
-        <th>Salary</th>
-        <th>Action</th>
-    </tr>
-    <tr th:each="employee : ${employees}">
-        <td>
-            <th:block th:if="${ employee.photo!=null && employee.photo.length()>0}">
-                <img th:src="'data:image/png;base64,' + ${employee.photo}" width="100" height="100" alt="Photo">
-            </th:block>
-        </td>
-        <td th:text="${employee.getFirstName() }"></td>
-        <td th:text="${employee.lastName }"></td>
-        <td th:text="${employee.registrationNo}"></td>
-        <td th:text="${employee.birthDate}"></td>
+        <label class="search-label">Page size:</label>
+        <input type="number" name="page_size" id="page_size" th:value="${pageSize}"/> <br>
+        <div class="col-sm-12"><input type="submit" value="Search" class="submitButton"/></div>
+    </form>
 
-        <td th:text="${employee.gender}"></td>
-        <td>
-            <ul>
-                <li th:each="phone : ${employee.phones}" th:text="${phone}"></li>
-            </ul>
-        </td>
-        <td th:text="${employee.address}"></td>
-        <td th:text="${employee.personalEmail}"></td>
-        <td th:text="${employee.professionalEmail}"></td>
-        <td th:text="${employee.cinNumber}"></td>
-        <td th:text="${employee.cinIssueDate}"></td>
-        <td th:text="${employee.cinIssuePlace}"></td>
-        <td th:text="${employee.function}"></td>
-        <td th:text="${employee.numberOfChildren}"></td>
-        <td th:text="${employee.hiringDate}"></td>
-        <td th:text="${employee.departureDate}"></td>
-        <td th:text="${employee.socioProfessionalCategory}"></td>
-        <td th:text="${employee.cnapsNumber}"></td>
-        <td th:text="${employee.monthlySalary}"></td>
-        <td>
-            <a th:href="@{/employees/{id}/details(id=${employee.id})}">Details</a>
-            <a th:href="@{/employees/{id}/update(id=${employee.id})}">Update</a>
-        </td>
-    </tr>
-</table>
-<div class="pagination">
-    <!-- First Page -->
-    <span>
+    <form th:action="@{/exportEmployees}" method="get" class="employeeExportForm">
+        <input type="number" name="page" hidden="hidden" id="_page" th:value="${page}"/>
+        <input type="number" name="page_size" hidden="hidden" id="_page_size" th:value="${pageSize}" />
+        <input type="text" name="sort_by" hidden="hidden" id="_sort_by" th:value="${sortField}" />
+        <input type="text" name="sort_order" hidden="hidden" id="_sort_order" th:value="${sortOrder}"/>
+        <input type="text" name="last_name" id="_last_name" th:value="${lastName}" hidden="hidden"/>
+        <input type="text" name="first_name" id="_first_name" th:value="${firstName}" hidden="hidden">
+        <input type="text" name="gender" id="_gender" th:value="${gender}" hidden="hidden">
+        <input type="text" name="function" id="_function" th:value="${function}" hidden="hidden">
+        <input type="date" name="entrance_after" id="_entrance_after" th:value="${entrance_after}" hidden="hidden"/>
+        <input type="date" name="entrance_before" id="_entrance_before" th:value="${entrance_before}" hidden="hidden"/>
+        <input type="date" name="leave_after" id="_leave_after" th:value="${leave_after}" hidden="hidden"/>
+        <input type="date" name="leave_before" id="_leave_before" th:value="${leave_before}" hidden="hidden"/>
+        <div class="col-sm-12"><input type="submit" value="Export CSV" class="submitButton"/></div>
+    </form>
+
+
+    <table class="employee-table">
+        <tr>
+            <th>Photo</th>
+            <th>
+                <div th:replace="~{fragments/sort-link :: sort_link(sortField='firstName', sortText=${sortField eq 'firstName' ? (sortOrder eq 'ASC' ? 'First Name ▲' : 'First Name ▼') : 'First Name'})}"></div>
+            </th>
+            <th>
+                <div th:replace="~{fragments/sort-link :: sort_link(sortField='lastName', sortText=${sortField eq 'lastName' ? (sortOrder eq 'ASC' ? 'Last Name ▲' : 'Last Name ▼') : 'Last Name'})}"></div>
+            </th>
+            <th>Registration Number</th>
+            <th>Birth Date</th>
+            <th>
+                <div th:replace="~{fragments/sort-link :: sort_link(sortField='gender', sortText=${sortField eq 'gender' ? (sortOrder eq 'ASC' ? 'Gender ▲' : 'Gender ▼') : 'Gender'})}"></div>
+            </th>
+            <th>Phones</th>
+            <th>Address</th>
+            <th>Personal Email</th>
+            <th>Professional Email</th>
+            <th>CIN Number</th>
+            <th>CIN Issue Date</th>
+            <th>CIN Issue Place</th>
+            <th>
+                <div th:replace="~{fragments/sort-link :: sort_link(sortField='function', sortText=${sortField eq 'function' ? (sortOrder eq 'ASC' ? 'Function ▲' : 'Function ▼') : 'Function'})}"></div>
+            </th>
+            <th>Number of Children</th>
+            <th>Hiring Date</th>
+            <th>Departure Date</th>
+            <th>Socio-Professional Category</th>
+            <th>CNAPS Number</th>
+            <th>Salary</th>
+            <th>Action</th>
+        </tr>
+        <tr th:each="employee : ${employees}">
+            <td>
+                <th:block th:if="${ employee.photo!=null && employee.photo.length()>0}">
+                    <img th:src="'data:image/png;base64,' + ${employee.photo}" width="100" height="100" alt="Photo">
+                </th:block>
+            </td>
+            <td th:text="${employee.getFirstName() }"></td>
+            <td th:text="${employee.lastName }"></td>
+            <td th:text="${employee.registrationNo}"></td>
+            <td th:text="${employee.birthDate}"></td>
+
+            <td th:text="${employee.gender}"></td>
+            <td>
+                <ul>
+                    <li th:each="phone : ${employee.phones}" th:text="${phone}"></li>
+                </ul>
+            </td>
+            <td th:text="${employee.address}"></td>
+            <td th:text="${employee.personalEmail}"></td>
+            <td th:text="${employee.professionalEmail}"></td>
+            <td th:text="${employee.cinNumber}"></td>
+            <td th:text="${employee.cinIssueDate}"></td>
+            <td th:text="${employee.cinIssuePlace}"></td>
+            <td th:text="${employee.function}"></td>
+            <td th:text="${employee.numberOfChildren}"></td>
+            <td th:text="${employee.hiringDate}"></td>
+            <td th:text="${employee.departureDate}"></td>
+            <td th:text="${employee.socioProfessionalCategory}"></td>
+            <td th:text="${employee.cnapsNumber}"></td>
+            <td th:text="${employee.monthlySalary}"></td>
+            <td>
+                <a th:href="@{/employees/{id}/details(id=${employee.id})}">Details</a>
+                <a th:href="@{/employees/{id}/update(id=${employee.id})}">Update</a>
+            </td>
+        </tr>
+    </table>
+    <div class="pagination">
+        <!-- First Page -->
+        <span>
         <a th:href="@{/employees
         (page=1, page_size=${pageSize},
         sort_order=${sortOrder},
@@ -145,8 +149,8 @@
         leave_after=${leave_after}
         )}" th:if="${page > 1}"> 1 </a>
     </span>
-    <!-- Previous Page -->
-    <span>
+        <!-- Previous Page -->
+        <span>
         <a th:href="@{/employees(
         page=${page - 1}, page_size=${pageSize},
         sort_order=${sortOrder},
@@ -162,13 +166,13 @@
         )}" th:if="${page > 1}"> < </a>
     </span>
 
-    <!-- Current Page -->
-    <span class="current-page">
+        <!-- Current Page -->
+        <span class="current-page">
         <span th:text="${page}"></span>
     </span>
 
-    <!-- Next Page -->
-    <span>
+        <!-- Next Page -->
+        <span>
         <a th:href="@{/employees(page=${page + 1}, page_size=${pageSize},
         sort_order=${sortOrder},
         sort_by=${sortField},
@@ -182,8 +186,8 @@
         leave_after=${leave_after})}"
            th:if="${page < totalPages}"> > </a>
     </span>
-    <!-- Last Page -->
-    <span>
+        <!-- Last Page -->
+        <span>
         <a th:href="@{/employees(page=${totalPages }, page_size=${pageSize},
         sort_order=${sortOrder},
         sort_by=${sortField},
@@ -198,13 +202,13 @@
            th:if="${page < totalPages}" th:text="${totalPages}"></a>
     </span>
 
-    <!-- Total Pages -->
-    <span> / <span th:text="${totalPages}"></span></span>
+        <!-- Total Pages -->
+        <span> / <span th:text="${totalPages}"></span></span>
 
-</div>
+    </div>
 
-<div id="content-wrap"></div>
-<div th:insert="~{fragments/footer :: footer}"></div>
+    <div id="content-wrap"></div>
+    <div th:insert="~{fragments/footer :: footer}"></div>
 </div>
 </body>
 </html>
