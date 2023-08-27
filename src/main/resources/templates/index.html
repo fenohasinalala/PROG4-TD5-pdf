@@ -7,8 +7,8 @@
     <title>Employee Management</title>
 </head>
 <body>
+<div id="page-container">
 <div th:replace="~{fragments/header :: header}"></div>
-<span th:text="${session.sessionId}"></span>
 <h1>Employee List</h1>
 
 <form th:action="@{/exportEmployees}" method="get" >
@@ -202,6 +202,9 @@
     <span> / <span th:text="${totalPages}"></span></span>
 
 </div>
+
+<div id="content-wrap"></div>
 <div th:insert="~{fragments/footer :: footer}"></div>
+</div>
 </body>
 </html>

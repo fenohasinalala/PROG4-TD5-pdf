@@ -7,6 +7,7 @@
     <title>Employee Management</title>
 </head>
 <body>
+<div id="page-container">
 <div th:replace="~{fragments/header :: header}"></div>
 <h1>Create New Employee</h1>
 <div class="container mt-5">
@@ -91,6 +92,10 @@
         <br>
         <div class="col-sm-10"><input type="submit" value="Create" class="submitButton"/></div>
     </form>
+
+    <div id="content-wrap"></div>
+    <div th:insert="~{fragments/footer :: footer}"></div>
+</div>
 </div>
 <!--<div th:insert="~{fragments/footer :: footer}"></div>-->
 <script>

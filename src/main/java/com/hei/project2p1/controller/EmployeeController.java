@@ -145,6 +145,8 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
         List<String> categories = Stream.of(Employee.SocioProfessionalCategory.values()).map(Enum::name).toList();
         model.addAttribute("categories", categories);
         model.addAttribute("phones", new ArrayList<>());
+        CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
+        model.addAttribute("company", company);
         return "add-employee";
     }
 
@@ -224,7 +226,7 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
                 .cnapsNumber(null)
                 .registrationNo(null)
                 .build();
-        employeeService.save(employeeViewMapper.toDomain(employee), employee.getCodeCountry() , employee.getPhones());
+        employeeService.save(employeeViewMapper.toDomain(employee), employee.getCodeCountry(), employee.getPhones());
         CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         model.addAttribute("company", company);
         return "redirect:"+EmployeeUrl.EMPLOYEES_LIST;
