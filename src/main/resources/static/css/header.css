@@ -1,9 +1,6 @@
 /* styles.css */
 
 /* Set primary color */
-:root {
-    --primary-color: #383770;
-}
 
 /* Styles for the header component */
 .headerComponent {
@@ -14,28 +11,23 @@
     width: 100%;
 }
 
-/* Styles for the navigation bar */
-.navBar {
-    padding: 10px 20px;
-}
-
-.navBar ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.navBar li {
-    display: inline;
-    margin-right: 15px;
-}
-
 /* Styles for the header buttons */
 .headerButton {
     color: #ffffff;
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 5px;
+}
+
+.navbar-button-container a{
+    color: whitesmoke !important;
+    background-color: var(--primary-color2) !important;
+}
+
+.navbar-button-container a:hover{
+    color: whitesmoke !important;
+    background-color: var(--secondary-color) !important;
+    text-decoration: none !important;
 }
 
 .headerButton:hover {

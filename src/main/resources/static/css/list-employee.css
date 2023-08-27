@@ -1,6 +1,3 @@
-:root {
-    --primary-color: #383770;
-}
 
 .search-label{
     min-width: 200px;
@@ -15,18 +12,3 @@
     margin: 20px 20px;
 }
 
-.submitButton{
-    background-color: var(--primary-color);
-    color: #fff;
-    cursor: pointer;
-
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-.submitButton:hover{
-    background-color: #6e547c;
-}
