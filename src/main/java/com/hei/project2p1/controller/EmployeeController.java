@@ -59,11 +59,14 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
         Integer employeeAge = employeeService.getAgeOfEmployee(employee);
         CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         String logo = getImageAsBase64("static/image/logo.png");
+        String companyPhone = company.getPhones().toString()
+                .replace("[", "").replace("]", "");
 
         Context context= new Context();
         context.setVariable("employee", employeeView);
         context.setVariable("age",employeeAge);
         context.setVariable("company", company);
+        context.setVariable("companyPhone", companyPhone);
         context.setVariable("logo", logo);
         employeeView.setPhoto(employeeView.getPhoto().replace(" ",""));
         context.setVariable("photo", Base64.getEncoder().encodeToString(employeeView.getPhoto().getBytes()));

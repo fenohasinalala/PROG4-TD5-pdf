@@ -98,8 +98,10 @@
             <p>Registration Number: <span th:text="${employee.getRegistrationNo()}"></span></p>
             <p>Last Name: <span th:text="${employee.getLastName()}"></span></p>
             <p>First Name: <span th:text="${employee.getFirstName()}"></span></p>
-            <p>Age: <span th:if="${age == null}">Not specified</span></p>
-            <p><span th:if="${age != null}" th:text="${age}"> years</span></p>
+            <p>Age:
+                <span th:if="${age == null}">Not specified</span>
+                <span th:if="${age != null}" th:text="${age}"> years</span>
+            </p>
             <p>Hiring Date: <span th:text="${employee.getHiringDate()}"></span></p>
             <p>Departure Date: <span th:text="${employee.getDepartureDate()}"></span></p>
             <p>CNAPS Number: <span th:text="${employee.getCnapsNumber()}"></span></p>
@@ -124,7 +126,7 @@
         </div>
         <div class="info-entreprise-p2">
             <p>Address: <span th:text="${company.getAddress()}"></span></p>
-            <p>Phone: <span th:text="${company.getPhones()}"></span></p>
+            <p>Phone: <span th:text="${companyPhone}"></span></p>
             <p>Email: <span th:text="${company.getContactEmail()}"></span></p>
         </div>
     </div>
