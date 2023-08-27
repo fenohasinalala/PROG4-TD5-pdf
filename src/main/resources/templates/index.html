@@ -65,7 +65,7 @@
 
 
     <table class="employee-table">
-        <tr>
+        <tr class="table-header">
             <th>Photo</th>
             <th>
                 <div th:replace="~{fragments/sort-link :: sort_link(sortField='firstName', sortText=${sortField eq 'firstName' ? (sortOrder eq 'ASC' ? 'First Name ▲' : 'First Name ▼') : 'First Name'})}"></div>

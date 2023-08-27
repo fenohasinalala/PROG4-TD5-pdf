@@ -82,6 +82,11 @@ a:hover {
     color: var(--primary-color);
 }
 
+td a {
+    background-color: lightgray;
+    margin: 4px;
+}
+
 body {
     font-family: Arial, sans-serif;
 }

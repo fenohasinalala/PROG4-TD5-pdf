@@ -12,3 +12,6 @@
     margin: 20px 20px;
 }
 
+.table-header th{
+    background-color: #e3e3e3 !important;
+}
