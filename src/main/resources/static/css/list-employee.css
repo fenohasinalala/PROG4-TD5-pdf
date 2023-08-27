@@ -15,3 +15,13 @@
 .table-header th{
     background-color: #e3e3e3 !important;
 }
+
+
+.page-num{
+    min-width: 40px;
+    min-height: 40px;
+    background-color: var(--secondary-color2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

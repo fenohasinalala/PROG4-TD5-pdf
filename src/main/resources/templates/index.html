@@ -134,7 +134,7 @@
     </table>
     <div class="pagination">
         <!-- First Page -->
-        <span>
+        <span class="page-num">
         <a th:href="@{/employees
         (page=1, page_size=${pageSize},
         sort_order=${sortOrder},
@@ -150,7 +150,7 @@
         )}" th:if="${page > 1}"> 1 </a>
     </span>
         <!-- Previous Page -->
-        <span>
+        <span class="page-num">
         <a th:href="@{/employees(
         page=${page - 1}, page_size=${pageSize},
         sort_order=${sortOrder},
@@ -167,12 +167,12 @@
     </span>
 
         <!-- Current Page -->
-        <span class="current-page">
-        <span th:text="${page}"></span>
+        <span class="current-page page-num">
+        <span th:text="${page + ' / ' +totalPages}"> </span>
     </span>
 
         <!-- Next Page -->
-        <span>
+        <span class="page-num">
         <a th:href="@{/employees(page=${page + 1}, page_size=${pageSize},
         sort_order=${sortOrder},
         sort_by=${sortField},
@@ -187,7 +187,7 @@
            th:if="${page < totalPages}"> > </a>
     </span>
         <!-- Last Page -->
-        <span>
+        <span class="page-num">
         <a th:href="@{/employees(page=${totalPages }, page_size=${pageSize},
         sort_order=${sortOrder},
         sort_by=${sortField},
@@ -201,9 +201,6 @@
         leave_after=${leave_after})}"
            th:if="${page < totalPages}" th:text="${totalPages}"></a>
     </span>
-
-        <!-- Total Pages -->
-        <span> / <span th:text="${totalPages}"></span></span>
 
     </div>
 
