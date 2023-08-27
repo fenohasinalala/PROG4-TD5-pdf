@@ -13,11 +13,11 @@
 
 #page-container {
     position: relative;
-    min-height: calc(100vh);
+    min-height: calc(97vh);
 }
 
 #content-wrap {
-    padding-bottom: 15rem;    /* Footer height */
+    padding-bottom: 12em;    /* Footer height */
 }
 
 #footer {
