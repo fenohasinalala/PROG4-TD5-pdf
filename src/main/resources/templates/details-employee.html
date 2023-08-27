@@ -7,7 +7,7 @@
     <title>Employee details</title>
 </head>
 <body>
-
+<div id="page-container">
     <div th:replace="~{fragments/header :: header}"></div>
     <h1>Employee Details</h1>
     <div class="employee-card">
@@ -50,7 +50,10 @@
     </div>
     <div class="container d-flex justify-content-center align-items-center min-vh-40">
         <a th:href="@{/employees/{id}/sheet(id=${employee.id})}" class="btn btn-primary custom-button">Get pdf version</a>
+
+        <div id="content-wrap"></div>
+        <div th:insert="~{fragments/footer :: footer}"></div>
     </div>
-    <div th:insert="~{fragments/footer :: footer}"></div>
+</div>
 </body>
 </html>
