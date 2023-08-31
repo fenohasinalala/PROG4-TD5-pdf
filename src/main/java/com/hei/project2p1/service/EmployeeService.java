@@ -29,12 +29,29 @@ public class EmployeeService {
     private final PhoneService phoneService;
     private final PhoneValidator phoneValidator;
 
-    public Integer getAgeOfEmployee(Employee employee){
+    public Integer getAgeOfEmployee(Employee employee, String precision, Integer minInterval){
+        enum Mode{
+            BIRTHDAY,
+            YEAR_ONLY,
+            CUSTOM_DELAY
+        }
+
+        AgeCalculator.Precision agePrecision;
+        if (Objects.equals(precision, Mode.BIRTHDAY.toString())){
+            agePrecision = AgeCalculator.Precision.DAY;
+        } else if (Objects.equals(precision, Mode.YEAR_ONLY.toString())) {
+            agePrecision = AgeCalculator.Precision.YEAR;
+        } else if (Objects.equals(precision, Mode.CUSTOM_DELAY.toString())) {
+            agePrecision = AgeCalculator.Precision.CUSTOM;
+        } else {
+            throw new IllegalArgumentException("Precision [" + precision + "] not recognized.");
+        }
+
         LocalDate birthDate = employee.getBirthDate();
         if (birthDate==null){
             return null;
         }
-        return ageCalculator.getAge(birthDate,AgeCalculator.DAY);
+        return ageCalculator.getAge(birthDate,agePrecision,minInterval);
     }
 
     public Employee getEmployeeById(String id){

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -40,6 +41,7 @@ import static com.hei.project2p1.controller.mapper.utils.LoadFiles.getImageAsBas
 import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPdf;
 
 @Controller
+//@RestController
 @AllArgsConstructor
     public class EmployeeController {
     private final EmployeeViewMapper employeeViewMapper;
@@ -52,11 +54,13 @@ import static com.hei.project2p1.controller.utils.CustomResponse.convertHtmlToPd
 
 
     @GetMapping(value = EmployeeUrl.EMPLOYEES_SHEET)
-    public void getEmployeeSheetPdf(@PathVariable("id") String id, HttpServletResponse response) {
+    public void getEmployeeSheetPdf(@PathVariable("id") String id,
+                                    @RequestParam(value = "precision", required = false) String precision,
+                                    @RequestParam(value = "birthday_min_interval", required = false) Integer minInterval, HttpServletResponse response) {
 
         Employee employee = employeeService.getEmployeeById(id);
         EmployeeView employeeView = employeeViewMapper.toView(employee,"Not specified");
-        Integer employeeAge = employeeService.getAgeOfEmployee(employee);
+        Integer employeeAge = employeeService.getAgeOfEmployee(employee, precision, minInterval);
         CompanyView company = companyViewMapper.toView(companyService.getCompanyInfo());
         String logo = getImageAsBase64("static/image/logo.png");
         String companyPhone = company.getPhones().toString()

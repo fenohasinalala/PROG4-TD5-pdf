@@ -12,7 +12,7 @@ import static com.hei.project2p1.controller.constant.CommonErrorMessage.UNSUPPOR
 public class MonthPrecisionAgeCalculator implements AgeCalculator {
 
     @Override
-    public int getAge(LocalDate date) {
+    public int getAge(LocalDate date, Integer minInterval) {
         System.out.println("MONTH PRECISION");
         LocalDate currentDate = LocalDate.now();
         int diff = currentDate.getYear()-date.getYear();
@@ -23,7 +23,7 @@ public class MonthPrecisionAgeCalculator implements AgeCalculator {
     }
 
     @Override
-    public int getAge(LocalDate date, AgeCalculator.Precision precision) {
+    public int getAge(LocalDate date, AgeCalculator.Precision precision, Integer minInterval) {
         throw new ApiException(UNSUPPORTED_ERROR_MESSAGE);
     }
 
